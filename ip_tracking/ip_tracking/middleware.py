@@ -12,6 +12,10 @@ class IPTrackingMiddleware:
             ip_address = ip_address.split(',')[0]  # Take first IP in list
         else:
             ip_address = request.META.get('REMOTE_ADDR')
+            
+        # Block if IP is in blacklist
+        if BlockedIP.objects.filter(ip_address=ip_address).exists():
+            return HttpResponseForbidden("Your IP has been blocked.")    
 
         # Log to database
         RequestLog.objects.create(
