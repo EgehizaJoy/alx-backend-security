@@ -19,4 +19,5 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("ip_tracking/", include("ip_tracking.urls")),
 ]
